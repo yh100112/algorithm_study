@@ -9,7 +9,7 @@ int mul(int a, int b){
 }
 
 int main(){
-  int (*fp)(int a,int b);
+  int (*fp)(int,int);
 
   fp = add;
   printf("%d\n",fp(10,20));

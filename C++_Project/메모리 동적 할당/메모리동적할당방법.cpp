@@ -18,7 +18,7 @@ int main(){
   for(int i=0; i<5; i++){
     cout << point[i] << endl;
   }
-  cout << sizeof(point) << endl; // 8바이트
+  cout << sizeof(point) << endl; // 32bit일때 -> 4바이트 64bit일 때 -> 8바이트
   cout << sizeof(*point) <<endl; // 4바이트
   cout << sizeof(point[0]) << endl; // 4  이것도값이니까 정수이므로 4바이트
   cout << *point<<endl; // 0
