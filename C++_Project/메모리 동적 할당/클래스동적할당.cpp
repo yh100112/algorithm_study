@@ -23,15 +23,14 @@ public:
 //   Pony stackPony("STACK");
 //   stackPony.setNum("Second");
 //   cout << stackPony.getNum() << "Pony is on stack Memory." << endl;
-//   /*
+//   
 //   선언만으로도 stackPony 인스턴스가 생성되어 스택 영역에 올라간다.
 //   .연산자를 통해 인스턴스에 접근할 수 있다.
 //   스택 메모리의 데이터는 함수 영역을 벗어나면 자동으로 소멸되기 때문에, 메모리 해제가 따로 필요없다.
-//   */
-
-
+//  
 //   return 0;
 // }
+
 int main(){
   Pony* heapPony = new Pony("First");
 
