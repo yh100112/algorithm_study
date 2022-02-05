@@ -4,7 +4,6 @@ int main(){
   int maze[11][11];
   int i,j;
   int a;
-  bool check = false;
 
   for(i = 1;i <= 10; i++){
     for(j = 1;j <= 10; j++){
@@ -13,30 +12,38 @@ int main(){
     }
   }
 
+  bool check = false;
+  j = 2;
   for(i = 2; i <= 10; i++){
-    if(check == true){
+    if(maze[i][j] == 2){
+      maze[i][j] = 9;
       break;
     }
+    maze[i][j] = 9;
 
-    for(j = 2; j <= 10; j++){
-      if(maze[i][j] == 2){
+    if(i == 9 && j == 9){
+      break;
+    }
+    if(maze[i][j+1] == 1){
+      continue;
+    }else if(maze[i][j+1] == 2){
+      maze[i][j+1] = 9;
+      break;
+    }else{
+      j++;
+      for(j; j <= 10; j++){
         maze[i][j] = 9;
-        check = true;
-        break;
-      }else if(maze[i][j] == 0){
-        maze[i][j] = 9;
+        if(maze[i][j+1] == 1){
+          break;
+        }else if(maze[i][j+1] == 2){
+          maze[i][j+1] = 9;
+          check = true;
+          break;
+        }       
       }
-
-      if(maze[i][j+1] == 1){
-        break;
-      }else if(maze[i][j+1] == 0){
-        continue;
-      }
-
+      if(check == true) break;
     }
   }
-
-  printf("\n");
 
   for(i = 1;i <= 10; i++){
     for(j=1;j<=10;j++){
