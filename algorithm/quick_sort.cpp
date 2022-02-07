@@ -1,21 +1,33 @@
 #include<stdio.h>
+#include<iostream>
+using namespace std;
 
-int number = 10;
-int data[10] = {1,10,5,8,7,6,4,3,2,9};
+int data[] = {2,1,6,3,4,5,6,2,1,6,3,4,5,6};
 
-void quickSort(int *data, int start, int end){
-  if(start >= end){ // 원소가 1개인 경우
-    return;
+void quickSort(int start, int end){
+  if(start >= end) return;
+
+  int left = start;
+  int right = end;
+  int pivot = (start + end) / 2;
+
+  while(left < right){
+    while(data[left] < data[pivot]) left++;
+    while(data[right] > data[pivot]) right--;
+
+    if(left <= right){
+      swap(data[left],data[right]);
+      left++;
+      right--;
+    }
   }
-
-  int key = start; // 키는 첫번째 원소
-  int i = start + 1; // 왼쪽 -> 오른쪽으로 키보다 큰 값을 찾는 것의 출발지점
-  int j = end; // 오른쪽 -> 왼쪽으로 키보다 작은 값을 찾는 것의 출발지점
-  int temp;
-
-  
+  quickSort(start,right);
+  quickSort(left,end);
 }
 
 int main(){
-
+  quickSort(0,(sizeof(data) / sizeof(data[0]))-1);
+  for(int i = 0; i < sizeof(data) / sizeof(data[0]); i++){
+    printf("%d ", data[i]);
+  }
 }
