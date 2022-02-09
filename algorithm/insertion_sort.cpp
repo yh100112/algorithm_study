@@ -1,4 +1,6 @@
 #include<stdio.h>
+#include<iostream>
+using namespace std;
 
 int main(){
   int i,j,temp;
@@ -7,9 +9,7 @@ int main(){
   for(i = 0;i < 3; i++){
     j = i;
     while( j >= 0 && array[j] > array[j+1]){
-      temp = array[j];
-      array[j] =  array[j+1];
-      array[j+1] = temp;
+      swap(array[j],array[j+1]);
       j--;
     }
   }

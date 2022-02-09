@@ -1,45 +1,27 @@
-#include<iostream>
 #include<stdio.h>
+#include<algorithm>
 using namespace std;
 
-void quickSort(int* data, int start, int end){
-  if(start >= end) return;
-
-  int left = start;
-  int right = end;
-  int pivot = (start + end) / 2;
-  int temp;
-
-  while(left < right){
-    while(data[left] < data[pivot]) left++;
-    while(data[right] > data[pivot]) right--;
-
-    if(left <= right){
-      temp = data[left];
-      data[left] = data[right];
-      data[right] = temp;
-      left++;
-      right--;
-    }
-  }
-
-  quickSort(data, start, right);
-  quickSort(data, left,end);
-}
+int number;
 
 int main(){
-  int i,j,n,a;
-  scanf("%d",&n);
-
-  int data[n+1];
-  for(i=0; i<n; i++){
-    scanf("%d",&a);
-    data[i] =a;
+  int data[1000000];
+  scanf("%d", &number);
+  for(int i=0; i < number; i++){
+    scanf("%d",&data[i]);
   }
-
-  quickSort(data,0,n-1);
-  for(i=0; i<n; i++){
+  sort(data, data + number);
+  for(int i = 0; i < number; i++){
     printf("%d\n",data[i]);
   }
 }
 
+/*
+위 문제는 데이터의 갯수가 100만 개인데 시간 제한이 1초이므로 
+반드시 시간 복잡도 O(N * logN)으로 풀어야 한다.
+=> 시간 복잡도가 O(n * logn)인 힙정렬,병합정렬,퀵정렬 로 풀어야 함
+=> 퀵 정렬은 최악일 때 O(n^2)이므로 "기본 퀵정렬"으로는 풀지 못함
+
+! STL 라이브러리에서 제공하는 sort() 함수는 퀵 정렬을 기반으로 하되 별도의
+! 처리를 거쳐 최악의 경우에도 O(n * logn)을 보장한다.
+*/

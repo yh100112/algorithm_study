@@ -2,7 +2,7 @@
 #include<iostream>
 using namespace std;
 
-int data[] = {2,1,6,3,4,5,6,2,1,6,3,4,5,6};
+int ppp[] = {2,1,6,3,4,5,6,2,1,6,3,4,5,6};
 
 void quickSort(int start, int end){
   if(start >= end) return;
@@ -12,11 +12,11 @@ void quickSort(int start, int end){
   int pivot = (start + end) / 2;
 
   while(left < right){
-    while(data[left] < data[pivot]) left++;
-    while(data[right] > data[pivot]) right--;
+    while(ppp[left] < ppp[pivot]) left++;
+    while(ppp[right] > ppp[pivot]) right--;
 
     if(left <= right){
-      swap(data[left],data[right]);
+      swap(ppp[left],ppp[right]);
       left++;
       right--;
     }
@@ -26,8 +26,8 @@ void quickSort(int start, int end){
 }
 
 int main(){
-  quickSort(0,(sizeof(data) / sizeof(data[0]))-1);
-  for(int i = 0; i < sizeof(data) / sizeof(data[0]); i++){
-    printf("%d ", data[i]);
+  quickSort(0,(sizeof(ppp) / sizeof(ppp[0]))-1);
+  for(int i = 0; i < sizeof(ppp) / sizeof(ppp[0]); i++){
+    printf("%d ", ppp[i]);
   }
 }
