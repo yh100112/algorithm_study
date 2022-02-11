@@ -1,5 +1,3 @@
-// ! ½Ç¹«¿¡¼­ ½ÇÁ¦·Î sort()¸¦ »ç¿ëÇÏ´Â °æ¿ì
-
 #include<iostream>
 #include<algorithm>
 
@@ -14,9 +12,6 @@ public:
     this->score = score; 
   }
 
-  //Á¤·Ä ±âÁØ : Á¡¼ö°¡ ÀÛÀº ¼ø¼­
-  // ´Ù¸¥ ÇĞ»ı(student)°ú ºñ±³ÇÒ ¶§ ³» Á¡¼ö(this->score)°¡ ´õ ³·´Ù¸é
-  // ¿ì¼±¼øÀ§°¡ ³ô´Ù¶ó´Â ¶æ => Á¡¼ö°¡ ÀÛÀº ¼ø¼­ºÎÅÍ Ãâ·ÂÇÏ°Ú´Ù´Â ¸»ÀÓ
   bool operator < (Student& student){
     return this->score < student.score;
   }
@@ -25,13 +20,13 @@ public:
 
 int main(){
   Student students[] = {
-    Student("³ªµ¿ºó", 90),
-    Student("ÀÌ»ó¿í", 93),
-    Student("¹ÚÇÑ¿ï", 97),
-    Student("°­Á¾±¸", 87),
-    Student("ÀÌÅÂÀÏ", 92)
+    Student("ê¹€ì¼ë³‘", 90),
+    Student("ê¹€ì´ë³‘", 93),
+    Student("ê¹€ìƒë³‘", 97),
+    Student("ê¹€ì‚¬ë³‘", 87),
+    Student("ê¹€ì˜¤ë³‘", 92)
   };
-  sort(students,students + 5); // Å¬·¡½º ³»¿¡¼­ ±âÁØÀ» Á¤ÇØÁá±â ¶§¹®¿¡ ÀÌ·¸°Ô ½ÃÀÛ°ª°ú ³¡°ª¸¸ ½áÁÖ¸é µÊ
+  sort(students,students + 5); 
   for(int i = 0; i < 5; i++){
     cout << students[i].name << " ";
   }
