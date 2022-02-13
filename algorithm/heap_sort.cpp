@@ -4,7 +4,6 @@ int number = 9;
 int heap[9] = {7,6,5,8,3,5,9,1,6};
 
 int main(){
-  
   //먼저 전체 트리 구조를 최대 힙 구조로 바꿉니다.
   for(int i = 1; i < number; i++){
     int c = i; // 자식 인덱스
@@ -51,6 +50,4 @@ int main(){
   for(int i = 0; i < number; i++){
     printf("%d ",heap[i]);
   }
-
-
 }

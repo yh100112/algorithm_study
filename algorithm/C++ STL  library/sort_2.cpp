@@ -4,7 +4,7 @@
 using namespace std;
 
 bool compare(int a, int b){
-  return a > b; // a가 b보다 작을 때 우선적으로 출력하도록 함 (오름차순)
+  return a > b; // a가 b보다 클 때 우선적으로 출력하도록 함 (내림차순)
 }
 
 int main(){

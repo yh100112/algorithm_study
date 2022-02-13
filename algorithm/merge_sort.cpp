@@ -20,7 +20,6 @@ void merge(int left, int right){
     }
   }
 
-
   //값이 남은 배열을 찾아서 남은 값들을 새로운 배열의 뒷부분에 순서대로 넣음
   int tmp = i > mid ? j : i;
   while(k <= right){

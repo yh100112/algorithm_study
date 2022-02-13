@@ -4,9 +4,9 @@ using namespace std;
 
 int main(){
   int i,j,temp;
-  int array[3]={10,5,3};
+  int array[10]={1,10,5,8,7,6,4,3,2,9};
 
-  for(i = 0;i < 3; i++){
+  for(i = 0;i < 10; i++){
     j = i;
     while( j >= 0 && array[j] > array[j+1]){
       swap(array[j],array[j+1]);
@@ -14,7 +14,7 @@ int main(){
     }
   }
 
-  for(int k = 0; k < 3; k++){
+  for(int k = 0; k < 10; k++){
     printf("%d ",array[k]);        
   }
 }

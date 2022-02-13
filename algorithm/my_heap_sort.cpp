@@ -47,14 +47,14 @@ int main(){
     heapify(i);
   }
 
-
+  //Èü Á¤·Ä ¼öÇà
   for(int i = n; i > 0; i--){
     heapSort(i);
-    printf("%d : ",i);
-    for(int j = 1; j <= n; j++){
-      printf("%d ",heap[j]);
-    }
-    printf("\n");
+    // printf("%d : ",i);
+    // for(int j = 1; j <= n; j++){
+    //   printf("%d ",heap[j]);
+    // }
+    // printf("\n");
   }
 
 
