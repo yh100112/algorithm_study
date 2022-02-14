@@ -1,16 +1,15 @@
 #include<stdio.h>
+#include<iostream>
+#include<string>
+using namespace std;
 
 int main(){
-	int sum = 0;
-	int grade[3] = {1,2,3};
-	grade[3] = 4;
-
-  printf("%p %p\n",&sum,&grade[3]);
-
-	// for(int i = 0; i<4;i++){
-  //   printf("%d\n",grade[i]);
-  // }
-  
-  printf("%d",sum);
+  string a = "hello1234";
+  int c;
+  for(int i = 0; i < a.length(); i++){
+    if(a[i] >= '0' && a[i] <= '9'){
+      printf("%c\n",a[i]);
+    }
+  }
 
 }
