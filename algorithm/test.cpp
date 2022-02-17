@@ -1,45 +1,67 @@
 #include<iostream>
+#include<queue>
 #include<vector>
+
 using namespace std;
 
+int number = 7;
+int c[7];
+vector<int> a[8];
+
+void bfs(int start){
+  queue<int> q;
+  q.push(start);
+  c[start] = true;
+  while(!q.empty()){
+    int x = q.front();
+    q.pop();
+    printf("%d ",x);
+    for(int i = 0; i < a[x].size(); i++){
+      int y = a[x][i];
+      if(!c[y]){
+        q.push(y);
+        c[y] = true;
+      }
+    }
+  }
+}
+
 int main(){
-  vector<int> v;
+  a[1].push_back(2);
+  a[2].push_back(1);
+  
+  //1과 3을 연결
+  a[1].push_back(3);
+  a[3].push_back(1);
 
-  v.push_back(21);
-  v.push_back(32);
-  v.push_back(53);
-  v.push_back(64);
-  v.push_back(15);
+  //2와 3을 연결
+  a[2].push_back(3);
+  a[3].push_back(2);
 
-  //ex1) 멤버형식 size_type을 이용한 반복
-  cout << "ex1-1) [v.at(i)] size_type : ";
-  for(vector<int>::size_type i = 0; i < v.size(); i++){
-    cout << v.at(i) << " ";
-  }
+  //2와 4를 연결
+  a[2].push_back(4);
+  a[4].push_back(2);
+  
+  //2와 5를 연결
+  a[2].push_back(5);
+  a[5].push_back(2);
 
-  cout << endl;
+  //3과 6을 연결
+  a[3].push_back(6);
+  a[6].push_back(3);
 
-  cout << "ex1-2) [ v[i] ] size_type : ";
-  for(vector<int>::size_type i = 0; i < v.size(); i++){
-    cout << v[i] << " ";
-  }
+  //3과 7을 연결
+  a[3].push_back(7);
+  a[7].push_back(3);
 
-  printf("\n\n");
+  //4와 5를 연결
+  a[4].push_back(5);
+  a[5].push_back(4);
 
-  //ex2) int i 를 이용한 반복
-  cout << "ex2-1) [v.at(i)] int : ";
-  for(int i = 0; i < v.size(); i++){
-    cout << v.at(i) << " ";
-  }
-  cout << endl << endl;
+  //6과 7을 연결
+  a[6].push_back(7);
+  a[7].push_back(6);
 
-  //ex3) 반복자 iterator를 이용한 반복
-  cout << "ex3) [*iter] iterator : ";
-  vector<int>::iterator iter;
-  for(iter = v.begin(); iter != v.end(); iter++){
-    cout << *iter << " ";
-  }
-
-  printf("\n\n");
-
+  //BFS를 수행
+  bfs(1);
 }
