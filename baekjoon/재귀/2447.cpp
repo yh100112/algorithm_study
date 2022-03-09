@@ -1,31 +1,30 @@
-#include<stdio.h>
 #include<iostream>
 using namespace std;
 
-void star(int n){
-    if(n == 1){
-        printf("*");
-        return;
-    }
-    int cnt = 0;
-    
-    for(int i = 1; i <= n; i++){
-        for(int j = 1; j <= n; j++){
-            cnt++;
-            if(cnt == 5){
-                printf(" ");
-                continue;
-            }
-            star(n/3);
-        }
-        printf("\n");
-    }
-    cnt = 0;
-    
-}
+int star(int i, int j, int n);
 
 int main(){
-    int n;
-    scanf("%d",&n);
-    star(n);
+  int n;
+  cin >> n;
+  for(int i = 0; i < n; i++){
+    for(int j = 0; j < n; j++){
+      star(i,j,n);
+    }
+    cout << "\n";
+  }
+
+  return 0;
+}
+
+int star(int i, int j, int n){
+  if((i / n) % 3 == 1 && (j / n) % 3 == 1){
+    cout << " ";
+  }
+  else if(n / 3 == 0){
+    cout << "*";
+  }
+  else{
+    star(i,j,n/3);
+  }
+  return 0;
 }
