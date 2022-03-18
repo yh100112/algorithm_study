@@ -1,19 +1,33 @@
 #include<iostream>
 using namespace std;
 
+// O(N^2)
+// int func2(int arr[], int n){
+//   for(int i = 0; i < n; i++){
+//     for(int j = i+1; j < n; j++){
+//       if(arr[i] + arr[j] == 100) return 1;
+//     }
+//   }
+//   return 0;
+// }
+
+
+// 시간복잡도 O(N)
+int a[101];
+
 int func2(int arr[], int n){
   for(int i = 0; i < n; i++){
-    for(int j = i+1; j < n; j++){
-      if(arr[i] + arr[j] == 100) return 1;
-    }
+    if(a[100 - arr[i]] == 1){
+      return 1;
+    } 
+    a[arr[i]] = 1;
   }
-
   return 0;
 }
 
 int main(){
-  int arr[] = {50,42};
-  cout << func2(arr,2) << endl;
+  int arr[] = {50,42,54};
+  cout << func2(arr,3) << endl;
 } 
 
 /*
