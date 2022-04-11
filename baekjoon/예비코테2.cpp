@@ -7,6 +7,7 @@
 using namespace std;
 
 //°°Àº »ö±ò ¹«Á¶°Ç ¿«±â
+//???
 int solution(int n, vector<int> colors) {
   int max = 0;
   int max_test = 0;
