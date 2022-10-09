@@ -15,6 +15,7 @@ int main(){
   }
 
   for(int k = 0; k < 10; k++){
-    printf("%d ",array[k]);        
+    cout << array[k] << " ";
   }
+  cout << endl;
 }
