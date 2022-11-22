@@ -7,21 +7,20 @@ int main() {
   int n, i;
   cin >> n;
 
-  stack<int> s;
   int cnt = 1;
+  stack<int> s;
   string ans;
+  while(n--) {
+    int c;
+    cin >> c;
 
-  while (n--) {
-    int num;
-    cin >> num;
-
-    while (cnt <= num) {
+    while (cnt <= c) {
       s.push(cnt++);
       ans += "+\n";
     }
 
-    if (s.top() != num) {
-      cout << "NO" << endl;
+    if (s.top() != c) {
+      cout << "NO" << "\n";
       return 0;
     }
 
