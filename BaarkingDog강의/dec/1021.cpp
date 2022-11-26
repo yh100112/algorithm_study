@@ -16,6 +16,7 @@ int main() {
   while(m--) {
     int num;
     cin >> num;
+
     for (i = 0; i < dq.size(); ++i) {
       if (dq[i] == num) {
         index = i;
@@ -23,6 +24,7 @@ int main() {
       }
     }
 
+    // 절반 이하면 2번
     if (index <= dq.size() / 2) {
       while (true) {
         if (dq.front() == num) {
@@ -35,6 +37,7 @@ int main() {
         ++min;
       }
     }
+    // 절반 초과면 3번
     else {
       while (true) {
         if (dq.front() == num) {
