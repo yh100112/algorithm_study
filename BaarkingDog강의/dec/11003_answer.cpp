@@ -33,3 +33,4 @@ int main() {
     cout << dq.front().data << " "; // deq의 맨앞 원소를 출력하면 그게 바로 현재 구간(i-L+1 ~ i)에서의 최소값
   }
 }
+
