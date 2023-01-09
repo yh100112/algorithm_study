@@ -12,6 +12,7 @@ void dfs(int x)
   if (c[x]) return; // 현재 그 노드가 방문한 노드라면 바로 함수 종료
   c[x] = true;
   cout << x << ' ';
+  // 현재 노드랑 인접한 노드 끝까지 방문함
   for (int i = 0; i < a[x].size(); ++i) {
     int y = a[x][i];
     dfs(y);
