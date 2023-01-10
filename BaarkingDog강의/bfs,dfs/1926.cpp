@@ -1,6 +1,6 @@
-#include <iostream>
-#include <utility>
-#include <queue>
+#include<iostream>
+#include<queue>
+#include<utility>
 using namespace std;
 #define X first
 #define Y second // pair에서 first, second를 줄여서 쓰기 위해서 사용
