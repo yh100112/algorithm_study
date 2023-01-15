@@ -5,23 +5,20 @@ using namespace std;
 #define X first
 #define Y second
 int board[1002][1002];
-int dist[1002][1002]; // 전역으로 선언한 int나 int배열은 초기화를 안하면 0으로 채워짐
+int dist[1002][1002];
 int n,m;
-int dx[4] = {1,0,-1,0};
-int dy[4] = {0,1,0,-1};
-
-// 익은 토마토 : 1 익지 않은 토마토 : 0 토마토가 없는 칸 : -1
-// 모든 시작점을 큐에 넣고 앞에서 한 것과 같이 bfs를 돌리면 됨
+int dx[4] = {0,0,-1,1};
+int dy[4] = {-1,1,0,0,};
 int main(void){
   cin >> m >> n;
   queue<pair<int,int> > Q;
   for(int i = 0; i < n; i++){
     for(int j = 0; j < m; j++){
       cin >> board[i][j];
-      if(board[i][j] == 1) // 익은 토마토는 큐에 삽입
+      if(board[i][j] == 1)
         Q.push({i,j});
-      if(board[i][j] == 0) // 익지 않은 토마토는 dist값을 -1로 세팅
-        dist[i][j] = -1; // 익은 토마토가 들어있거나 빈칸인 곳은 dist값이 0인 것을 인지
+      if(board[i][j] == 0)
+        dist[i][j] = -1;
     }
   }
   while(!Q.empty()){
