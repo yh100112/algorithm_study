@@ -15,7 +15,7 @@ using ll = long long;
 // 2. 2^(2k+1)승을 구할 수 있다. ( 2^2k에 2만 한번 더 곱해주면 되므로 )
 // -> 위 두문장이 참이므로 2의 지수승을 귀납적으로 구할 수 있다. 
 ll func(ll a, ll b, ll c) {
-  if(b == 1) return a;
+  if(b == 1) return a % c;
   ll val = func(a, b/2, c); // 반만 구한다.
   val = val * val % c; // 반 구한걸 제곱한다. ( 2^k x 2^k = 2^2k이므로)
   if (b % 2 == 0) return val;
