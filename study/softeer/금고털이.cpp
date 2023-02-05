@@ -14,7 +14,7 @@ int main()
 	for(int i = 0; i < n; i++)
 		cin >> m[i].first >> m[i].second;
 	
-	sort(m.begin(), m.end(), [](auto& left, auto& right){
+	sort(m.begin(), m.end(), [](pair<int,int>& left, pair<int,int>& right){
 		return left.second > right.second;
 	});
 
