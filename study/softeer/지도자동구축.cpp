@@ -18,3 +18,4 @@ int main(int argc, char** argv)
 	cout << D[n] * D[n];
 	return 0;
 }
+// dp문제
