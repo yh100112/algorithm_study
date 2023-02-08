@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 		cin >> r >> s >> t;
 		int start = stoi(s);
 		int end = stoi(t);
-		for(int j = start; j <= end; j++){
+		for(int j = start; j < end; j++){
 			reserv[r][j] = 1;
 		}
 	}
@@ -33,33 +33,29 @@ int main(int argc, char** argv)
 		vector<pair<int,int>> v;
 		int start = 0;
 		int end = 0;
+		bool check = false;
 		cout << "Room " << room[i] << ":\n";
 		for(int j = 9; j <= 18; j++){
-			if(reserv[room[i]][j] == 0){
+			if(reserv[room[i]][j] == 0 && check == false){
 				start = j;
+				check = true;
 			}
-			else {
-				if(start != 0)
-					end = j;
+			else if(reserv[room[i]][j] == 0 && check == true){
+				end = j;
 				v.push_back({start,end});
-				start = 0;
-				if(j < 18 && reserv[room[i]][j+1] == 0)
-					start = j;
+				check = false;
 			}
 		}
-		if (v.empty() == true){
-			cout << "Not available" << "\n" << "-----" << "\n";
-		}
-		else {
-			cout << v.size() << " available:\n"; 
-			for(auto& ans: v){
-				cout << ans.first << "-" << ans.second << "\n"; 
-			}
-			if (i != n-1)
-				cout << "-----" << "\n";
-		}
+    if (v.empty()){
+      cout << "No available" << "\n";
+    }
+    else {
+      for(auto& pp: v) {
+        cout << pp.first << "-" << pp.second << "\n"; 
+      }
+    }
+    cout << "-----" << "\n";
 	}
-
 
 	return 0;
 }
