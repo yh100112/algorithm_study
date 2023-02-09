@@ -5,8 +5,9 @@ using namespace std;
 
 int n,m;
 int arr[10];
+int num[10];
 
-void func(int k, vector<int>& num){
+void func(int k){
   if(k == m){
     for(int i = 0; i < m; i++)
       cout << num[arr[i]] << ' ';
@@ -16,29 +17,26 @@ void func(int k, vector<int>& num){
 
   for(int i = 0; i < n; i++){
     arr[k] = i;
-    func(k+1, num);
+    func(k+1);
   }
 }
 
+vector<bool> check(10002);
+
 int main(){
   int i,j;
-  vector<int> num;
   cin >> n >> m;
-  for(i = 0; i < n; i++) {
-    int input;
+
+  int input;
+  int idx = 0;
+  while(n--){
     cin >> input;
-    if(i != 0){
-      for(j = 0; j < i; j++){
-        if(input == num[j])
-          break;
-      }
-      if (j == i)
-        num.push_back(input);
-    }
-    else{
-      num.push_back(input);
-    }
+    if(check[input] == 1) continue;
+    check[input] = 1;
+    num[idx] = input;
+    idx++;
   }
-  sort(num.begin(),num.end());
-  func(0,num); //계속 0이 나옴
+  n = idx;
+  sort(num,num+n);
+  func(0); //계속 0이 나옴
 }
