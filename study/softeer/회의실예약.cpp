@@ -1,61 +1,65 @@
 #include<iostream>
-#include<algorithm>
-#include<vector>
-#include<utility>
 #include<map>
+#include<vector>
+#include<algorithm>
 using namespace std;
 
 
-int main(int argc, char** argv)
+int main()
 {
-	int n,m; // n : 회의실의 수, m : 예약된 회의의 수
-	string room[n];
-	map<string, vector<int>> reserv;
-	vector<int> arr(19);
+	int n,m; // 회의실의 수, 예약된 회의 수
 	cin >> n >> m;
-	for(int i = 0; i < n; i++) {
-		cin >> room[i];
-		reserv[room[i]] = arr;
+
+	map<string,vector<int>> reserv;
+	vector<int> a(18);
+	string name[3];
+	string r,s,t;
+	for(int i = 0; i < n; i++){
+		cin >> name[i];
+		reserv[name[i]] = a;
 	}
-	sort(room,room+n);
+	sort(name, name+3);
 
 	for(int i = 0; i < m; i++){
-		string r,s,t;
 		cin >> r >> s >> t;
-		int start = stoi(s);
-		int end = stoi(t);
-		for(int j = start; j < end; j++){
+		for(int j = stoi(s); j < stoi(t); j++){
 			reserv[r][j] = 1;
 		}
+		
 	}
 
 	for(int i = 0; i < n; i++){
+		cout << "Room " << name[i] << ":\n";
+		int check = 1;
+		int start, end;
 		vector<pair<int,int>> v;
-		int start = 0;
-		int end = 0;
-		bool check = false;
-		cout << "Room " << room[i] << ":\n";
-		for(int j = 9; j <= 18; j++){
-			if(reserv[room[i]][j] == 0 && check == false){
+		for(int j = 9; j < 18; j++){
+			if(reserv[name[i]][j] == 0 && check == 1){
 				start = j;
-				check = true;
+				check = 0;
 			}
-			else if(reserv[room[i]][j] == 0 && check == true){
+			else if(reserv[name[i]][j] == 1 && check == 0){
 				end = j;
+				check = 1;
 				v.push_back({start,end});
-				check = false;
 			}
 		}
-    if (v.empty()){
-      cout << "No available" << "\n";
-    }
-    else {
-      for(auto& pp: v) {
-        cout << pp.first << "-" << pp.second << "\n"; 
-      }
-    }
-    cout << "-----" << "\n";
+		if(check == 0)
+			v.push_back({start,18});
+		
+		if(v.empty())
+			cout << "Not available\n";
+		else{
+			cout << v.size() << " available:\n";
+			for(auto& ans: v){
+				if (ans.first == 9)
+					cout << "09-" << ans.second << "\n";
+				else
+					cout << ans.first << "-" << ans.second << "\n";
+			}
+		}
+		if(i < n-1)
+			cout << "-----\n";
 	}
-
 	return 0;
 }

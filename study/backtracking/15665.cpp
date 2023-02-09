@@ -23,7 +23,6 @@ void func(int k, vector<int>& num){
 int main(){
   int i,j;
   vector<int> num;
-
   cin >> n >> m;
   for(i = 0; i < n; i++) {
     int input;
@@ -36,7 +35,10 @@ int main(){
       if (j == i)
         num.push_back(input);
     }
+    else{
+      num.push_back(input);
+    }
   }
-  for(auto& v: num)
-    cout << v << endl;
+  sort(num.begin(),num.end());
+  func(0,num); //계속 0이 나옴
 }
