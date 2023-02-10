@@ -33,13 +33,13 @@ int main(int argc, char** argv)
 		string chk;
 		chk = "";
 		while(a_len--){
-			chk += " ";
+			chk += ' ';
 		}
 		a = chk + a;
 
 		chk = "";
 		while(b_len--){
-			chk += " ";
+			chk += ' ';
 		}
 		b = chk + b;
 		
