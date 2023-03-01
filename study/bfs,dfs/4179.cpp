@@ -61,6 +61,7 @@ int main(void) {
       }
       if(dist2[nx][ny] >= 0 || board[nx][ny] == '#') continue;
       // 불의 위치를 추가로 따져줌
+      // 불이 없는 곳(dist1이 -1인 곳은 무조건 항상 작기 때문에 불이 없는 곳은 제외시켜줘야 함)
       if(dist1[nx][ny] >= 0 && dist2[cur.X][cur.Y] + 1 >= dist1[nx][ny]) continue;
       dist2[nx][ny] = dist2[cur.X][cur.Y] + 1;
       Q2.push({nx,ny});
