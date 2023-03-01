@@ -1,40 +1,27 @@
 #include<iostream>
-#include<algorithm>
 #include<queue>
 #include<utility>
 using namespace std;
-#define X first
-#define Y second
-int n,m;
-string board[102];
-int dist[102][102];
-int dx[4] = {-1,1,0,0};
-int dy[4] = {0,0,-1,1};
+
+int dist[100002];
 
 int main(){
-  cin >> n >> m;
-  for(int i=0; i<n; i++)
-    cin >> board[i];
-  for(int i=0; i<n; i++){
-    for(int j=0; j<m; j++){
-      dist[i][j] = -1;
-    }
-  }
+  int n,k;
+  cin >> n >> k; // 수빈 : n, 동생 : k
+  fill(dist,dist + 100002, -1);
 
-  queue<pair<int,int>> Q;
-  Q.push({0,0});
-  dist[0][0] = 1;
+  queue<int> Q;
+  Q.push(n);
+  dist[n] = 0;
+
   while(!Q.empty()){
-    auto cur = Q.front(); Q.pop();
-    for(int dir = 0; dir < 4; dir++){
-      int nx = cur.X + dx[dir];
-      int ny = cur.Y + dy[dir];
-      if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
-      if(board[nx][ny] == '0' || dist[nx][ny] > 0) continue;
-      dist[nx][ny] = dist[cur.X][cur.Y] + 1;
-      Q.push({nx,ny});
+    int cur = Q.front(); Q.pop();
+    for(auto nx: {cur-1, cur+1, 2 * cur}){
+      if(nx < 0 || nx > 100001) continue;
+      if(dist[nx] != -1) continue;
+      dist[nx] = dist[cur] + 1;
+      Q.push(nx);
     }
   }
-
-  cout << dist[n-1][m-1];
+  cout << dist[k];
 }
