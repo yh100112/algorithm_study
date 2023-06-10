@@ -2,8 +2,9 @@
 using namespace std;
 
 int main(){
-    string a;
-    cin >> a;
-    int num = stoi(a);
-    cout << num << endl;
+    int a = 111;
+    string b = to_string(a);
+    for(auto v : b) {
+        if(v == '1') cout << v << "\n";
+    }
 }
