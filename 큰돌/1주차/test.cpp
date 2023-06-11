@@ -1,10 +1,23 @@
 #include<bits/stdc++.h>
 using namespace std;
+int a[9], sum;
 
 int main(){
-    int a = 111;
-    string b = to_string(a);
-    for(auto v : b) {
-        if(v == '1') cout << v << "\n";
+    for(int i = 0; i < 9; i++){
+        cin >> a[i];
+    }
+    sum = accumulate(a,a+9,0);
+    sort(a,a+9);
+    for(int i = 0; i < 9; i++){
+        for(int j = i + 1; j < 9; j++){
+            if(sum - (a[i] + a[j]) == 100) {
+               for(int k = 0; k < 9; k++){
+                    if(k != i && k != j) {
+                        cout << a[k] << "\n"; 
+                    }
+               }
+               return 0;
+            }
+        }
     }
 }
