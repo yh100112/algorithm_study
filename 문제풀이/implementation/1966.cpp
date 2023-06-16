@@ -1,42 +1,42 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n, a, k, num, ret;
+int p, a, k, n, ret;
 
 int main(){
-  cin >> n;
-  for(int i = 0; i < n; i++){
-    cin >> num >> k; // k : 몇번째
-    queue<pair<int,int>> q;
-    vector<int> ss;
-    for(int j = 0; j < num; j++){
-      cin >> a;
-      q.push({a,j});
-      ss.push_back(a);
-    }
-    int max = *max_element(ss.begin(), ss.end());
-    int cnt = 0;
-    while(!q.empty()){
-      for(int j = 0; j < q.size(); j++){
-        int prio = q.front().first;
-        int turn = q.front().second;
-        if(prio == max){
-          if(turn == k) { // 찾는 순번
-            cout << cnt+1 << "\n";
-            while(!q.empty()) q.pop();
-            break;
-          } // 찾는 순번 x
-          else {
-            q.pop();
-            ss.erase(remove(ss.begin(), ss.end(), prio), ss.end());
-            max = *max_element(ss.begin(),ss.end());
-            cnt++;
-          }
+    cin >> p;
+    for(int i = 0; i < p; i++){
+        cin >> n >> k; // k : 몇번째
+        queue<pair<int,int>> q;
+        vector<int> ss; // 우선순위
+        for(int j = 0; j < n; j++){
+            cin >> a;
+            if (j == k)   q.push({a,1});
+            else          q.push({a,0});
+            ss.push_back(a);
         }
-        else {
-          q.pop();
-          q.push({prio, turn});
+        sort(ss.begin(),ss.end());
+        int max = ss.back();
+        int cnt = 0;
+        int prio = 0, turn = -1;
+        while(!q.empty()){
+            prio = q.front().first;
+            turn = q.front().second;
+            if(prio == max) { // 우선순위가 max
+                if(turn == 1){
+                    cout << cnt + 1 << "\n";
+                    break;
+                }
+                else {
+                    q.pop();
+                    ss.pop_back();
+                    max = *max_element(ss.begin(), ss.end());
+                    cnt++;
+                }
+            }
+            else {
+                q.pop();
+                q.push({prio, turn});
+            }
         }
-      }
     }
-  }
 }
