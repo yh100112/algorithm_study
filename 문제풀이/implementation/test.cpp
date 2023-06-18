@@ -2,5 +2,7 @@
 using namespace std;
 
 int main(){
-    cout << -1 % 10 << endl;
+    string s = "abcde lkjjh";
+    reverse(s.begin() + 6, s.begin() + 6 + 5);
+    cout << s << endl;
 }
