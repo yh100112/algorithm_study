@@ -1,40 +1,34 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n,m,b, ret, sum;
-int ar[504][504];
-int height[257];
+int n,m,b;
+int arr[504][504]; // 높이
 
+// 쌓는 것 : 1초, 빼는 것 : 2초
 int main(){
-    cin >> n >> m >> b;
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
-            cin >> ar[i][j];
-            height[ar[i][j]]++;
-            sum += ar[i][j];
-        }
+  cin >> n >> m >> b;
+  for(int i = 0; i < n; i++){
+    for(int j = 0; j < m; j++){
+      cin >> arr[i][j];
     }
-    int max = *max_element(height + 1, height + n * m); // 가장 많은 높이
-    int min = *min_element(height + 1, height + n * m); // 가장 적은 높이
-    int avg = round(sum / double(n * m)); // 평균 높이
+  }
+  int mn = 2100000000;
+  int height_ret = 0;
+  for(int h = 0; h <= 256; h++) {
+    int remove = 0;
+    int build = 0;
     for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
-            int cur_h = ar[i][j];
-            int diff = abs(cur_h - avg);
-            if(cur_h > avg){
-                ret += (diff) * 2;
-                b += (diff);
-            }
-            else if (cur_h < avg) {
-                if(diff <= b) { // 인벤토리에 블록이 충분하면
-                    b -= (diff); // 인벤토리에서 필요한 만큼 뻄
-                    ret += (diff); // 걸린 시간
-                }
-                else {
-                    avg = cur_h;
-                    break;
-                }
-            }
-        }
+      for(int j = 0; j < m; j++){
+        if(h < arr[i][j]) remove += (arr[i][j] - h);
+        else build += (h - arr[i][j]);
+      }
     }
-    cout << ret << " " << avg << "\n";
+    if(remove + b >= build){
+      int time = remove * 2 + build;
+      if(time < mn) {
+        mn = time;
+        height_ret = h;
+      }
+    }
+  }
+  cout << mn << " " << height_ret << "\n";
 }
