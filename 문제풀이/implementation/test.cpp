@@ -2,17 +2,8 @@
 using namespace std;
 
 int main(){
-    string s = "abcde";
-    s += 'a';
-    cout << s << endl;
-
-    int a[2] = {1,2};
-    swap(a[0],a[1]);
-    for(auto v: a)
-        cout << v << " ";
-    cout << endl;
-    swap(a[0],a[1]);
-    for(auto v: a)
-        cout << v << " ";
-    cout << endl;
+    for(int i = 1; i < 30; i++){
+        if(i % 20 == 0) cout << "a" << endl;
+        else cout << "a" << " "; 
+    }
 }
