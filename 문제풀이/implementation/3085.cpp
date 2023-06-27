@@ -16,44 +16,53 @@ int main(){
     int mx = -1;
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n; j++){
-            int curX = i;
-            int curY = j;
             for(int ret = 0; ret < 4; ret++){
-                int nx = curX + dx[ret];
-                int ny = curY + dy[ret];
+                int nx = i + dx[ret];
+                int ny = j + dy[ret];
                 if(nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
-                if (ori[curX][curY] != ori[nx][ny]) {
-                    swap(ori[curX][curY], ori[nx][ny]);
-                    for(int row = 0; row < n; row++){
-                        int first = ori[row][0];
-                        int cnt = 0;
-                        for(int col = 0; col < n; col++){ // 행 체크
-                            if(first == ori[row][col]){
-                                cnt++;
-                            }
-                            else{
-                                cnt = 1;
-                                first = ori[row][col];
-                            }
+                swap(ori[i][j], ori[nx][ny]);
+                // 교환 후 행합 구함
+                int max_row = -1; // 행 중 제일 큰 연속된 사탕갯수
+                for(int row = 0; row < n; row++){
+                    int first = ori[row][0];
+                    int cnt = 0;
+                    int m_cnt = -1;
+                    // 행에서 연속된 제일 큰 값 구함
+                    for(int col = 0; col < n; col++){
+                        if(first == ori[row][col]) {
+                            cnt++;
+                            m_cnt = max(m_cnt, cnt);
                         }
-                        int first_col = ori[0][row];
-                        int index = row;
-                        int cnt2 = 0;
-                        for(int col = 0; col < n; col++){ // 열 체크
-                            index += n;
-                            if(first_col == ori[index][row]){
-                                cnt2++;
-                            }
-                            else{
-                                cnt2 = 1;
-                                first_col = ori[index][row];
-                            }
+                        else {
+                            cnt = 1;
+                            first = ori[row][col];
                         }
-                        int m = max(cnt,cnt2);
-                        mx = max(m,mx);
                     }
-                    swap(ori[curX][curY], ori[nx][ny]);
+                    max_row = max(m_cnt, max_row);
                 }
+                int max_col = -1; // 열 중 제일 큰 연속된 사탕갯수
+                for(int col = 0; col < n; col++){
+                    int first = ori[0][col];
+                    int index = 0;
+                    int cnt2 = 0;
+                    int m_cnt = -1;
+                    // 열에서 연속된 제일 큰 값 구함
+                    for(int row = 0; row < n; row++){
+                        if(first == ori[index][row]){
+                            cnt2++;
+                            m_cnt = max(m_cnt, cnt2);
+                        }
+                        else{
+                            cnt2 = 1;
+                            first = ori[index][row];
+                        }
+                        index += n;
+                    }
+                    max_col = max(m_cnt, max_col);
+                }
+                swap(ori[i][j], ori[nx][ny]);
+                int m = max(max_row, max_col);
+                mx = max(m,mx);
             }
         }
     }
