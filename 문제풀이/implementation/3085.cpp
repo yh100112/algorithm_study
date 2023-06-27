@@ -14,9 +14,9 @@ int main(){
             cin >> ori[i][j];
 
     int mx = -1;
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
-            for(int ret = 0; ret < 4; ret++){
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            for (int ret = 0; ret < 4; ret++) {
                 int nx = i + dx[ret];
                 int ny = j + dy[ret];
                 if(nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
@@ -43,20 +43,18 @@ int main(){
                 int max_col = -1; // 열 중 제일 큰 연속된 사탕갯수
                 for(int col = 0; col < n; col++){
                     int first = ori[0][col];
-                    int index = 0;
                     int cnt2 = 0;
                     int m_cnt = -1;
                     // 열에서 연속된 제일 큰 값 구함
                     for(int row = 0; row < n; row++){
-                        if(first == ori[index][row]){
+                        if(first == ori[row][col]){
                             cnt2++;
                             m_cnt = max(m_cnt, cnt2);
                         }
                         else{
                             cnt2 = 1;
-                            first = ori[index][row];
+                            first = ori[row][col];
                         }
-                        index += n;
                     }
                     max_col = max(m_cnt, max_col);
                 }
