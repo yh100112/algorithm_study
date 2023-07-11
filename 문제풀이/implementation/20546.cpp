@@ -29,11 +29,28 @@ int main(){
     for(int i = 1; i < 14; i++) {
         // 전날보다 떨어진 경우
         if(arr[i] < arr[i-1]) {
-
+            if (sung_stock > 0) {
+                down_cnt++;
+                if(down_cnt == 3) {
+                    down_cnt = 0;
+                    sung_money += (sung_stock * arr[i]);
+                    sung_stock = 0;
+                }
+            }
         }
         // 전날보다 오른 경우
         else if(arr[i] > arr[i-1]) {
-
+            raise_cnt++;
+            if(raise_cnt == 3){
+                int num = sung_money / arr[i];
+                sung_money -= (num * arr[i]);
+                sung_stock = num;
+            }
         }
     }
+    sung_stock *= arr[13];
+
+    if(sung_stock + sung_money > jun_stock + jun_money) cout << "TIMING";
+    else if (sung_stock + sung_money < jun_stock + jun_money) cout << "BNP";
+    else cout << "SAMESAME";
 }
