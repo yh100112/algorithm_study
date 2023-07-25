@@ -40,11 +40,11 @@ int main(){
         score[team_num]++;
         if(score[1] > score[2]) {
             curr_win_team = 1;
-            m[curr_win_team].push(sec); // queue에 넣음
+            m[curr_win_team].push(sec);
         }
         else if(score[1] < score[2]) {
             curr_win_team = 2;
-            m[curr_win_team].push(sec); // queue에 넣음
+            m[curr_win_team].push(sec);
         }
         else {
             ret[curr_win_team] += (sec - m[curr_win_team].front());
