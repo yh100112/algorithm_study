@@ -1,58 +1,49 @@
+// const int n = 6;
+// vector<int> adj[n];
+// int visited[n];
+// void dfs(int u){
+// 	visited[u] = 1;
+// 	cout << u << "\n";
+// 	for(int v : adj[u]){
+// 		if(visited[v] == 0){
+// 			dfs(v);
+// 		}
+// 	}
+// 	cout << u << "로부터 시작된 함수가 종료되었습니다.\n";
+// 	return;
+// }
+
+
+// int main() {
+// 	adj[1].push_back(2);
+// 	adj[1].push_back(3);
+// 	adj[2].push_back(4);
+// 	adj[4].push_back(2);
+// 	adj[2].push_back(5);
+// 	dfs(1); // 루트노드부터 dfs 시작
+// }
+
 #include<bits/stdc++.h>
 using namespace std;
-int n,m,ret, a[10][10], visited[10][10];
-vector<pair<int,int>> virusList, wallList;
-const int dy[] = {-1,0,1,0};
-const int dx[] = {0,1,0,-1};
-
-void dfs(int y, int x){
-    for(int i = 0; i < 4; i++){
-        int ny = y + dy[i];
-        int nx = x + dx[i];
-        if(ny < 0 || ny >= n || nx < 0 || nx >= m || visited[ny][nx] || a[ny][nx] == 1) continue;
-        visited[ny][nx] = 1;
-        dfs(ny,nx);
+const int n = 6;
+vector<int> adj[n];
+int visited[n];
+void dfs(int u){
+    visited[u] = 1;
+    cout << u << endl;
+    for(int v : adj[u]){
+        if(visited[v] == 0)
+            dfs(v);
     }
+    cout << u << "로부터 시작된 함수가 종료되었습니다." << endl;
     return;
 }
 
-int solve(){
-    fill(&visited[0][0], &visited[0][0] + 10 * 10, 0);
-    for(auto b : virusList){
-        dfs(b.first, b.second);
-    }
-
-    int cnt = 0;
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
-            if(a[i][j] == 0 && !visited[i][j]) cnt++;
-        }
-    }
-    return cnt;
-}
-
-int main(){
-    cin >> n >> m;
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
-            cin >> a[i][j];
-            if(a[i][j] == 2) virusList.push_back({i,j});
-            if(a[i][j] == 0) wallList.push_back({i,j});
-        }
-    }
-
-    for(int i = 0; i < wallList.size(); i++){
-        for(int j = 0; j < i; j++){
-            for(int k = 0; k < j; k++){
-                a[wallList[i].first][wallList[i].second] = 1;
-                a[wallList[j].first][wallList[j].second] = 1;
-                a[wallList[k].first][wallList[k].second] = 1;
-                ret = max(ret, solve());
-                a[wallList[i].first][wallList[i].second] = 0;
-                a[wallList[j].first][wallList[j].second] = 0;
-                a[wallList[k].first][wallList[k].second] = 0;
-            }
-        }
-    }
-    cout << ret << endl;
+int main() {
+    adj[1].push_back(2);
+    adj[1].push_back(3);
+    adj[2].push_back(4);
+    adj[2].push_back(2);
+    adj[2].push_back(5);
+    dfs(1);
 }
