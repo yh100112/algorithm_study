@@ -2,7 +2,7 @@
 using namespace std;
 int n,m,a,b,visited[10001],cnt;
 vector<int> adj[10001];
-vector<pair<int,int>> com;
+int dp[10001];
 
 void dfs(int u){
     visited[u] = 1;
@@ -12,10 +12,6 @@ void dfs(int u){
             dfs(v);
     }
     return;
-}
-
-bool cmp(pair<int,int>& a, pair<int,int>& b){
-    return a.second < b.second;
 }
 
 int main(){
@@ -31,12 +27,9 @@ int main(){
         fill(&visited[0], &visited[0] + 10001, 0);
         dfs(i);
         mx = max(mx, cnt);
-        com.push_back({i,cnt});
+        dp[i] = cnt;
     }
-    sort(com.begin(), com.end(), cmp);
-    for(auto v : com) {
-        if(v.second == mx)
-            cout << v.first << " ";
-    }
-    cout << "\n";
+    for(int i = 1; i <= n; i++)
+        if(dp[i] == mx)
+            cout << i << " ";
 }
