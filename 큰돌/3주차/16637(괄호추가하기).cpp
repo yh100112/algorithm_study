@@ -16,6 +16,7 @@ void go(int here, int _num){
     cout << here << " " << _num << "\n";
     if(here == num.size() - 1){
         ret = max(ret, _num);
+        cout << "완료 : " << _num << "\n"; 
         return;
     }
 
