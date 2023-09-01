@@ -7,6 +7,7 @@ using namespace std;
 const int INF = 987654321;
 int n, m, h, a, b, ret = INF, visited[34][34];
 bool check(){
+    // 와 이 로직 생각하는게 미쳤다....
     for(int i = 1; i <= n; i++){
         int start = i;
         for(int j = 1; j <= h; j++){
@@ -24,7 +25,9 @@ void go(int here, int cnt){
         ret = min(ret, cnt);
         return;
     }
+    // 가로
     for(int i = here; i <= h; i++){
+        // 세로
         for(int j = 1; j <= n; j++){
             if(visited[i][j] || visited[i][j - 1] || visited[i][j + 1]) continue;
             visited[i][j] = 1; // 사다리를 놓는다.
