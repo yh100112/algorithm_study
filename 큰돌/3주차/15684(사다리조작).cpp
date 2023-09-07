@@ -1,11 +1,8 @@
-/*
-사다리에 가로선을 추가해서, 사다리 게임의 결과를 조작하려고 한다. 이때, i번 세로선의 결과가 i번이 나와야 한다. 그렇게 하기 위해서 추가해야 하는 가로선 개수의 최솟값을 구하는 프로그램을 작성하시오.
-만약, 정답이 3보다 큰 값이면 -1을 출력. 또, 불가능한 경우에도 -1을 출력한다.
-*/
 #include<bits/stdc++.h>
 using namespace std;
-const int INF = 987654321;
-int n, m, h, a, b, ret = INF, visited[34][34];
+int a,b,n,m,h,ret = INT_MAX;
+int visited[34][34];
+
 bool check(){
     // 와 이 로직 생각하는게 미쳤다....
     for(int i = 1; i <= n; i++){
@@ -19,30 +16,37 @@ bool check(){
     return true;
 }
 
+// here : 가로선 위치, cnt : 가로에 추가로 놓은 사다리 개수
 void go(int here, int cnt){
-    if(cnt > 3 || cnt >= ret) return; // 사다리 갯수가 3보다 크거나 이미 최솟값보다 사다리 갯수가 크면 종료
+    if(cnt > 3 || cnt >= ret) return; // 백트래킹 가지치기
+    // 종료 조건 ( i에서 시작해 모두 i에서 끝나는 사다리 상태라면 종료 )
     if(check()){
-        ret = min(ret, cnt);
+        ret = min(ret, cnt); // cnt = 현재까지 놓은 사다리의 개수
         return;
     }
-    // 가로
+    // 가로선
     for(int i = here; i <= h; i++){
         // 세로
         for(int j = 1; j <= n; j++){
-            if(visited[i][j] || visited[i][j - 1] || visited[i][j + 1]) continue;
-            visited[i][j] = 1; // 사다리를 놓는다.
+            if(visited[i][j] || visited[i][j-1] || visited[i][j+1]) continue; // 사다리가 있는지, 앞뒤로 사다리가 있는지
+            visited[i][j] = 1;
             go(i, cnt + 1);
-            visited[i][j] = 0; // 놓은 사다리를 다시 없앤다.
+            visited[i][j] = 0;
         }
     }
 }
-
 int main(){
-    cin >> n >> m >> h; // n : 세로선 , m : 가로선, h : 가로선을 놓을 수 있는 위치
+    cin >> n >> m >> h; // 세로 가로 세로선마다 가로선을 놓을 수 있는 위치의 개수
     for(int i = 0; i < m; i++){
-        cin >> a >> b;
-        visited[a][b] = 1; // 1 -> 2 로 오른쪽으로 사다리를 놓는 것
+        cin >> a >> b; // a번 가로선 위치에 b -> b+1로 이어지는 선
+        visited[a][b] = 1;
     }
-    go(1, 0); // 세로 사다리 1부터 시작
-    cout << (ret == INF ? -1 : ret) << "\n";
+    go(1, 0);
+    cout << (ret == INT_MAX ? -1 : ret) << "\n";
 }
+/*
+visited[1][1] = 가로 1번에 놓는데 세로 1부터 시작해서 오른쪽으로 사다리를 놓는것!! -> 문제를 보고 이렇게 만듬
+함수를 호출하면서 가로선 번호를 증가시킬 거임 1 -> 2 -> 3 ...
+cnt >= 3 이 경우 종료시킬거임  -> 백트래킹 ( 완탐에서 가지치기 )
+최소값이 2로 되어있을 때 그 다음인 3으로 갈 필요 없다 -> 2가 최소인데 그 위는 체크할 필요가 없기 때문
+*/
