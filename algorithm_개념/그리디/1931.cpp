@@ -1,22 +1,29 @@
 #include<bits/stdc++.h>
 using namespace std;
-int fromt, to, n, idx = 0, ret = 1;
+int n, from, to, cnt = 1;
 
 int main(){
     cin >> n;
     vector<pair<int,int>> v;
     for(int i = 0; i < n; i++){
         cin >> from >> to;
-        v.push_back({to,from});
+        v.push_back({from, to});
     }
-    sort(v.begin(), v.end()); // 끝점을 기준으로 정렬
-    from = v[0].second;
-    to = v[0].first;
+    
+    sort(v.begin(), v.end(), [](pair<int,int>& left, pair<int,int>& right){
+        if(left.second == right.second)
+            return left.first < right.first;
+        else
+            return left.second < right.second;
+    });
+
+    from = v[0].first;
+    to = v[0].second;
     for(int i = 1; i < n; i++){
-        if(v[i].second < to) continue; // 다음 회의의 시작점이 이전 회의의 끝점보다 앞이면 안됨
-        from = v[i].second;
-        to = v[i].first;
-        ret++;
+        if(v[i].first < to) continue;
+        from = v[i].first;
+        to = v[i].second;
+        cnt++;
     }
-    cout << ret << '\n';
+    cout << cnt << '\n';
 }
