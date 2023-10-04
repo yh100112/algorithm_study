@@ -1,29 +1,28 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define start aaaa
-#define end aaa
-int n, m, sum, cnt, start, end;
-vector<int> v;
+int n, m, a[10004], cnt;
 
 int main(){
     cin >> n >> m;
-    v.resize(n);
     for(int i = 0; i < n; i++)
-        cin >> v[i];
-
-    sum = v[0]; 
-    while(start != n && end != n){
-        if(sum == m){
-            sum -= v[start];
-            start++, cnt++;
+        cin >> a[i];
+    
+    int l = 0;
+    int r = 0;
+    int sum = a[0];
+    while(l < n && r < n){
+        if(r < n && sum < m){
+            r++;
+            sum += a[r];
         }
-        else if(sum < m){
-            end++;
-            sum += v[end];
+        else if(sum == m){
+            cnt++;
+            sum -= a[l];
+            l++;
         }
-        else if(sum > m) {
-            sum -= v[start];
-            start++;
+        else{
+            sum -= a[l];
+            l++;
         }
     }
     cout << cnt << '\n';
