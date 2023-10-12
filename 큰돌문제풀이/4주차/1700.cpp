@@ -12,7 +12,7 @@ int main(){
     
     // 사용하는 전기용품 갯수
     for(int i = 0; i < n; i++){
-        // 사용하지 않은 전기용품인 경우만 
+        // 콘센트에 꽂혀있지 않은 전기용품인 경우 
         if(!visited[a[i]]){
             // 콘센트가 꽉 참
             if(v.size() == k){
@@ -35,11 +35,8 @@ int main(){
                 cnt++;
                 v.erase(find(v.begin(), v.end(), pos));
             }
-            // 콘센트가 꽉 차지 않은 경우
-            else{
-                v.push_back(a[i]);
-                visited[a[i]] = 1;
-            }
+            v.push_back(a[i]);
+            visited[a[i]] = 1;
         }
     }
 }
