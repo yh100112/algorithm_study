@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
+int a[54][54], n, m, t, ret, temp[54][54];
 int dy1[] = {0,-1,0,1};
 int dx1[] = {1,0,-1,0};
 int dy2[] = {0,1,0,-1};
@@ -89,5 +90,11 @@ int main(){
         go(v1);
         go(v2);
     }
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            if(a[i][j] != -1) ret += a[i][j];
+        }
+    }
+    cout << ret << "\n";
 }
 // 공기청정기!! -> 바람으로 이동하는 영역을 미리 뽑아놓는다.
