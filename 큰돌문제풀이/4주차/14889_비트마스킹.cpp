@@ -23,12 +23,14 @@ int main(){
             cin >> s[i][j];
         }
     }
-    // 이진수 0 ~ 15 까지 비트는 4자리이기 떄문에 0~15까지 돌면 15까지의 모든 0과 1의 비트 조합들이 나온다.
+    // 예를 들어 n = 4인 경우
+    // 이진수 0 ~ 15 까지 비트는 4자리이기 떄문에 0~15까지 돌면 15까지의 모든 0과 1의 비트 조합들이 나온다. -> 2^4 = 16가지
+    // -> n = 4인 경우의 모든 조합인 16가지의 경우가 됨 ( 이거 자체가 순열 조합을 뽑은 것임 )
     for(int i = 0; i < (1 << n); i++){ // n만큼 비트가 필요하므로 1 << n 범위까지 체크
         if(__builtin_popcount(i) != n / 2) continue; // 팀은 n/2명이므로 비트가 이 수만큼 켜져있을 때만 체크
         vector<int> start, link;
         for(int j = 0; j < n; j++){
-            if(i & (i << j)) start.push_back(j); // 비트가 켜져있으면 start팀에
+            if(i & (1 << j)) start.push_back(j); // 비트가 켜져있으면 start팀에
             else link.push_back(j);              // 비트가 꺼져있으면 link팀에
         }
         ret = min(ret, go(start, link));
