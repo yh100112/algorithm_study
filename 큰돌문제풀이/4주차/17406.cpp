@@ -5,7 +5,7 @@ using namespace std;
 const int INF = 987654321;
 const int dy[] = {0,1,0,-1}; // 처음에 오른쪽으로 이동시키므로 우부터 시작
 const int dx[] = {1,0,-1,0};
-int n, m, k, a[104][104], b[104][104], ret = IFN, r, c, s, visited[104][104], dir;
+int n, m, k, a[104][104], b[104][104], ret = INF, r, c, s, visited[104][104], dir, sy, sx, ey, ex;
 struct A{
     int y, x, cnt;
 };
@@ -42,7 +42,7 @@ void rotateAll(int y, int x, int cnt){
 
         vector<int> vvv; // 반시계반향으로 회전시킬 위치들에 있는 값 저장
         for(pair<int,int> c : vv) vvv.push_back(b[c.f][c.s]);
-        rotate(vvv.rbegin(), vvv.rbegin + 1, vvv.rend()); // 시계방향으로 한칸씩 이동
+        rotate(vvv.rbegin(), vvv.rbegin() + 1, vvv.rend()); // 시계방향으로 한칸씩 이동
         for(int i = 0; i < vv.size(); i++) b[vv[i].f][vv[i].s] = vvv[i];
     }
 }
