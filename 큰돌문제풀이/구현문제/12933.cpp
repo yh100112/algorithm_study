@@ -23,7 +23,7 @@ int main(){
             cnt[j]++;
     }
 
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i < s.size(); i++){
         ret = max(ret, cnt[i]);
         if(cnt[i] == 0)
             result = false;
