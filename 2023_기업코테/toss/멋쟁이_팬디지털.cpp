@@ -12,6 +12,7 @@ int main(){
         string s = "";
         for(int j = i; j < num.length(); j++){
             int a = num[j] - '0';
+            // 현재 숫자가 n 이하이고, 포함한 적이 없고, 합쳐진 숫자의 갯수가 n보다 작은 경우
             if(a <= n && arr[a] == 0 && cnt < n) {
                 s += to_string(a);
                 arr[a]++;
