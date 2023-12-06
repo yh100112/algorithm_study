@@ -24,7 +24,7 @@ int main(){
         else v[node].push_back(i);
     }
     cin >> d;
-    if(d == 0) {
+    if(d == root) {
         cout << 0 << endl;
         return 0;
     }
