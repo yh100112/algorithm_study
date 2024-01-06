@@ -22,7 +22,7 @@ int main(){
     }
 
     // quackkkkquack 같은 건 kkk부분을 그냥 넘어가버리고 뒤에 quack를 체크하기 때문에 in과 flag에 모두 
-    // 걸리지 않아서 답이 -1이 나와야 하는데 flag와 in에 걸리지 않아서 -987654321이 나온다.
+    // 걸리지 않아서 답이 -1이 나와야 하는데 flag와 in에 걸리지 않아서 -987654321이 나온다. 그래서 이부분이 필요
     for(int i = 0; i < s.size(); i++){
         ret = max(ret, cnt[i]);
         if(cnt[i] == 0)
