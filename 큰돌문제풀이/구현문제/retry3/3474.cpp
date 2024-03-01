@@ -1,26 +1,18 @@
 #include<bits/stdc++.h>
 using namespace std;
-typedef long long ll;
-int n, t, f;
-ll a;
+int cnt, n;
 
 int main(){
-    cin >> n;
-    for(int i = 0; i < n; ++i){
-        cin >> a;
-        t = f = 0;
-        for(int j = 1; j <= a; ++j){
-            int num = j;
-            while(num % 2 == 0){
-                num = num / 2;
-                ++t;
-            }
-            num = j;
-            while(num % 5 == 0){
-                num = num / 5;
-                ++f;
-            }
-        }
-        cout << min(t,f) << "\n";
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    cin >> cnt;
+    for(int i = 0; i < cnt; ++i){
+        cin >> n;
+        int two = 0, five = 0;
+        for(int j = 2; j <= n; j *= 2)
+            two += (n / j);
+        for(int j = 5; j <= n; j *= 5)
+            five += (n / j);
+        cout << min(two, five) << "\n";
     }
 }
