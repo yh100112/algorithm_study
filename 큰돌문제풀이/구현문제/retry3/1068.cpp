@@ -7,12 +7,13 @@ int visited[52];
 int go(int node) {
     visited[node] = 1;
     int ret = 0;
+    int child = 0;
     for (auto& i : v[node]) {
         if (visited[i] || i == del) continue;
         ret += go(i);
+        child++;
     }
-    if (ret == 0)
-        ret = 1;
+    if (child == 0) return 1;
     return ret;
 }
 
