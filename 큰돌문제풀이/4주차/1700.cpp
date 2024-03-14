@@ -5,7 +5,6 @@ const int INF = 987654321;
 vector<int> v;
 
 int main(){
-    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     cin >> k >> n; // 멀티탭 구멍 갯수, 전기용품 갯수
     for(int i = 0; i < n; i++)
         cin >> a[i];
@@ -40,13 +39,7 @@ int main(){
         }
     }
 }
-
 /*
-첫 줄에는 멀티탭 구멍의 개수 N (1 ≤ N ≤ 100)과 전기 용품의 총 사용횟수 K (1 ≤ K ≤ 100)가 정수로 주어진다. 
-두 번째 줄에는 전기용품의 이름이 K 이하의 자연수로 사용 순서대로 주어진다. 각 줄의 모든 정수 사이는 공백문자로 구분되어 있다.
-
-하나씩 플러그를 빼는 최소의 횟수를 출력하시오.
-
 2 7
 2 3 2 3 1 2 7
 
