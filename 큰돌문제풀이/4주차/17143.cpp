@@ -1,87 +1,98 @@
 #include<bits/stdc++.h>
+#define max_n 100
 using namespace std;
-#define size aaa
+struct Shark {
+    int y, x, s, dir, z, death;
+}a[max_n * max_n];
 const int dy[] = {-1, 1, 0, 0}; // 상 하 우 좌
 const int dx[] = {0, 0, 1, -1};
-int a[104][104], temp_a[104][104], r, c, s, d, z, m, y, x;
-int temp_speed[104][104], temp_size[104][104], temp_dir[104][104];
-int speed[104][104], size[104][104], dir[104][104];
-int start = -1, ret;
-
-void take() {
-    for (int i = 0; i < r; ++i) {
-        if(a[i][start]) { // 상어 포획
-            ret += size[i][start];
-            a[i][start] = 0;
-            speed[i][start] = 0;
-            dir[i][start] = 0;
-            size[i][start] = 0;
-            break;
-        }
-    }
-}
-
-void go(int y, int x, int& d_, int s_) {
-}
-
-void move_shark() {
-    fill(&temp_a[0][0], &temp_a[0][0] + 104 * 104, 0);
-    fill(&temp_size[0][0], &temp_size[0][0] + 104 * 104, 0);
-    fill(&temp_dir[0][0], &temp_dir[0][0] + 104 * 104, 0);
-    // 100 * 100 * speed(1000) -> 1억
-    // while을 한번에 하는 방법을 찾아야 함
-    for (int i = 0; i < r; ++i) {
-        for (int j = 0; j < c; ++j) {
-            if (a[i][j] == 0) continue;
-            int speed_ = speed[i][j]; // speed
-            int d = dir[i][j] - 1; // 방향
-            int y = i, x = j;
-            while(speed_--){
-                int ny = y + dy[d];
-                int nx = x + dx[d];
-                if (ny < 0 || ny >= r || nx < 0 || nx >= c) {
-                    if (d == 0) d = 1;
-                    else if (d == 1) d = 0;
-                    else if (d == 2) d = 3; // 우 -> 좌
-                    else if (d == 3) d = 2; // 좌 -> 우
-                    ny = y + dy[d];
-                    nx = x + dx[d];
-                }
-                y = ny;
-                x = nx;
-            }
-            if (temp_size[y][x] > size[i][j])
-                continue;
-            temp_size[y][x] = size[i][j];
-            temp_speed[y][x] = speed[i][j];
-            temp_dir[y][x] = d + 1;
-            temp_a[y][x] = 1;
-        }
-    }
-
-    memcpy(a, temp_a, sizeof(temp_a));
-    memcpy(size, temp_size, sizeof(temp_size));
-    memcpy(dir, temp_dir, sizeof(temp_dir));
-    memcpy(speed, temp_speed, sizeof(temp_speed));
-}
+int shark[max_n][max_n], R, C, M, ret, temp[max_n][max_n];
 
 int main() {
     ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    cin >> r >> c >> m;
-    for (int i = 0; i < m; i++) {
-        cin >> y >> x >> s >> d >> z; // 속력, 이동방향, 크기 
-        y--, x--;
-        a[y][x] = 1; // shark
-        speed[y][x] = s;
-        dir[y][x] = d;
-        size[y][x] = z;
+    cin >> R >> C >> M;
+    for (int i = 1; i <= M; i++) {
+        cin >> a[i].y >> a[i].x >> a[i].s >> a[i].dir >> a[i].z; // 속력, 이동방향, 크기
+        a[i].y--; a[i].x--; a[i].dir--;
+
+        // 속도(s) = 이동해야 할 칸 수
+        // 왔다 갔다가 전체 크기 * 2이니까 왔다 갔다하는 칸 수를 넘어가는 경우 왔다 갔다해야 할 이동 수를 지우는 것
+        if (a[i].dir <= 1) a[i].s %= (2 * (R - 1)); 
+        else a[i].s %= (2 * (C - 1));
+
+        shark[a[i].y][a[i].x] = i; // 상어 번호
     }
 
-    while(true){
-        start++;
-        if (start > c) break;
-        take();
-        move_shark();
+    for (int t = 0; t < C; t++) { // 열 -> 낚시꾼이 이동하는 것
+        // 상어 포획
+        for (int y = 0; y < R; y++) {
+            if (shark[y][t]) {
+                a[shark[y][t]].death = 1;
+                ret += a[shark[y][t]].z;
+                break;
+            }
+        }
+        memset(temp, 0, sizeof(temp));
+
+        // 상어 이동 ( 상어 마리수만큼 )
+        for (int i = 1; i <= M; i++) {
+            if (a[i].death) continue;
+            int y = a[i].y;
+            int x = a[i].x;
+            int s = a[i].s; // speed
+            int d = a[i].dir; // 방향
+            int ny, nx;
+
+            // 최대 2번 도는 반복문 -> 위에서 왔다갔다는 모듈러 연산으로 없앴기 때문
+            // 2번 더 도는 경우? -> 중앙에 있어서 왼쪽 오른쪽 벽을 다 치고 방향이 2번 바뀌는 경우
+            // 1번 더 도는 경우? -> 벽을 한번 치고 방향이 1번 바뀌는 경우
+            // 바로 탈출하는 경우? -> 벽을 닿지 않는 경우
+            while(true) {
+                ny = y + s * dy[d];
+                nx = x + s * dx[d];
+                if (ny >= 0 && ny < R && nx >= 0 && nx < C) break; // 범위 안에 있으면
+
+                // 범위를 넘어가는 경우 (벽에 부딪히는 경우)
+                if (d <= 1) { // 상 하
+                    if (ny < 0) {
+                        s -= y;
+                        y = 0;
+                    }
+                    else {
+                        s -= R - 1 - y;
+                        y = R - 1;
+                    }
+                }
+                else { // 우 좌
+                    if (nx < 0) {
+                        s -= x; // 이동해야 할 칸 개수에서 처음 위치를 뺸다. ( 처음 위치로 간거라서 그 위치까지의 칸 수는 뺴는 것 )
+                        x = 0; // 범위를 벗어나니까 시작위치인 0으로 위치를 바꿈
+                    }
+                    else {
+                        s -= C - 1 - x; // 중간에서 바로 우측끝으로 가는 경우 ( -x가 필요 )
+                        x = C - 1;
+                    }
+                }
+                d ^= 1; // 벽에 부딪혀서 방향 전환
+            }
+
+            if (temp[ny][nx]) {
+                if (a[temp[ny][nx]].z < a[i].z) { // 이미 이 위치에 있는 상어의 크기 < 나중에 이 위치로 온 상어의 크기
+                    a[temp[ny][nx]].death = 1;
+                    temp[ny][nx] = i;
+                }
+                else
+                    a[i].death = 1;
+            }
+            else
+                temp[ny][nx] = i; // 상어 번호 넣음
+
+            // 상어의 위치와 방향 갱신
+            a[i].y = ny;
+            a[i].x = nx;
+            a[i].dir = d;
+        }
+        memcpy(shark, temp, sizeof(temp));
     }
     cout << ret << "\n";
 }
