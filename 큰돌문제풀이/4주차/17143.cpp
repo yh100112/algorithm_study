@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define size aaa
-const int dy[] = {-1, 1, 0, 0};
+const int dy[] = {-1, 1, 0, 0}; // 상 하 우 좌
 const int dx[] = {0, 0, 1, -1};
 int a[104][104], temp_a[104][104], r, c, s, d, z, m, y, x;
 int temp_speed[104][104], temp_size[104][104], temp_dir[104][104];
@@ -15,15 +15,21 @@ void take() {
             a[i][start] = 0;
             speed[i][start] = 0;
             dir[i][start] = 0;
+            size[i][start] = 0;
             break;
         }
     }
+}
+
+void go(int y, int x, int& d_, int s_) {
 }
 
 void move_shark() {
     fill(&temp_a[0][0], &temp_a[0][0] + 104 * 104, 0);
     fill(&temp_size[0][0], &temp_size[0][0] + 104 * 104, 0);
     fill(&temp_dir[0][0], &temp_dir[0][0] + 104 * 104, 0);
+    // 100 * 100 * speed(1000) -> 1억
+    // while을 한번에 하는 방법을 찾아야 함
     for (int i = 0; i < r; ++i) {
         for (int j = 0; j < c; ++j) {
             if (a[i][j] == 0) continue;
@@ -35,9 +41,9 @@ void move_shark() {
                 int nx = x + dx[d];
                 if (ny < 0 || ny >= r || nx < 0 || nx >= c) {
                     if (d == 0) d = 1;
-                    if (d == 1) d = 0;
-                    if (d == 2) d = 3;
-                    if (d == 3) d = 2;
+                    else if (d == 1) d = 0;
+                    else if (d == 2) d = 3; // 우 -> 좌
+                    else if (d == 3) d = 2; // 좌 -> 우
                     ny = y + dy[d];
                     nx = x + dx[d];
                 }
@@ -52,13 +58,6 @@ void move_shark() {
             temp_a[y][x] = 1;
         }
     }
-    for (int i = 0; i < r; ++i) { 
-        for (int j = 0; j < c; ++j) {
-            cout << temp_size[i][j]<< ' ';
-        }
-        cout << endl;
-    }
-    cout << "----------" << endl;
 
     memcpy(a, temp_a, sizeof(temp_a));
     memcpy(size, temp_size, sizeof(temp_size));
@@ -67,6 +66,7 @@ void move_shark() {
 }
 
 int main() {
+    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     cin >> r >> c >> m;
     for (int i = 0; i < m; i++) {
         cin >> y >> x >> s >> d >> z; // 속력, 이동방향, 크기 
@@ -82,7 +82,6 @@ int main() {
         if (start > c) break;
         take();
         move_shark();
-        if(start == 2) break;
     }
     cout << ret << "\n";
 }
