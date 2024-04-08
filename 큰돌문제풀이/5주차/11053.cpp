@@ -1,3 +1,4 @@
+// 방법 1 - 전체를 탐색하며 새로운 LIS를 찾아가는 형태
 #include<bits/stdc++.h>
 using namespace std;
 int n, a[1001], ret;
