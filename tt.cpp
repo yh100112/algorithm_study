@@ -1,31 +1,34 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n, a, b, root, visited[54];
-vector<int> v[54];
+int n, m, a, b, visited[10004], cnt[10004], mx = INT_MIN;
+vector<int> v[10004];
 
 int go(int node) {
-    int flag = 0;
-    int ret = 0;
-    for (auto& next : v[node]) {
-        if (visited[next] || next == b) continue;
-        visited[next] = 1;
-        ret += go(next);
-        flag = 1;
-    }
+    visited[node] = 1;
 
-    if (flag == 0) return 1;
+    int ret = 1; 
+    for (auto& next : v[node]) {
+        if (visited[next]) continue;
+        ret += go(next);
+    }
     return ret;
 }
 
+
 int main() {
-    cin >> n;
-    for (int i = 0; i < n; i++) {
-        cin >> a;
-        if (a != -1) v[a].push_back(i);
-        else root = i;
+    cin >> n >> m;
+    for (int i = 0; i < m; i++) {
+        cin >> a >> b;
+        v[b].push_back(a);
     }
-    cin >> b;
-    visited[root] = 1;
-    if (b == root) cout << 0 << "\n";
-    else cout << go(root) << "\n";;
+
+    for (int i = 1; i <= n; i++) {
+        memset(visited, 0, sizeof(visited));
+        cnt[i] = go(i);
+        mx = max(mx, cnt[i]);
+    }
+
+    for (int i = 1; i <= n; i++)
+        if (cnt[i] == mx)
+            cout << i << " ";
 }
