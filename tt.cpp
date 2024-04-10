@@ -1,27 +1,21 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n, p, d, ret;
-vector<pair<int,int>> v;
+long long n, a[100004], visited[100004], ret, s, e;
 
 int main() {
     cin >> n;
-    for (int i = 0; i < n; i++) {
-        cin >> p >> d;
-        v.push_back({d,p}); // day, pay
-    }
-    sort(v.begin(), v.end()); // day 오름차순 정렬
-
-    priority_queue<int, vector<int>, greater<int>> pq;
-    for (int i = 0; i < n; i++) {
-        pq.push(v[i].second);
-        if(pq.size() > v[i].first) {
-            pq.pop();
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+    
+    while(e < n) {
+        if (visited[a[e]]) {
+            ret += (e - s);
+            visited[a[s++]]--;
+        }
+        else {
+            visited[a[e++]]++;
         }
     }
-
-    while(pq.size()) {
-        ret += pq.top();
-        pq.pop();
-    }
+    ret += (e - s) * (e - s + 1) / 2;
     cout << ret << "\n";
 }
