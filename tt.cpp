@@ -1,28 +1,33 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n, a, b;
-vector<pair<int,int>> v;
+long long n, k, a, ret, m, v;
+vector<pair<int,int>> jewel;
+vector<int> bag;
 
 int main() {
-    cin >> n;
+    cin >> n >> k;
     for (int i = 0; i < n; i++) {
-        cin >> a >> b;
-        v.push_back({a,b});
+        cin >> m >> v;
+        jewel.push_back({m, v});
     }
-    sort(v.begin(), v.end(), [](pair<int,int>& left, pair<int,int>& right){
-        if (left.second == right.second)
-            return left.first < right.first;
-        return left.second < right.second;
-    });
+    for (int i = 0; i < k; i++) {
+        cin >> a;
+        bag.push_back(a);
+    }
+    sort(bag.begin(), bag.end());
+    sort(jewel.begin(), jewel.end());
 
-    int s = v[0].first;
-    int e = v[0].second;
-    int cnt = 1;
-    for (int i = 1; i < v.size(); i++) {
-        if (v[i].first < e) continue;
-        s = v[i].first;
-        e = v[i].second;
-        cnt++;
+    priority_queue<int> pq;
+    int idx = 0;
+    for (int i = 0; i < bag.size(); i++) {
+        while(idx < n && bag[i] >= jewel[idx].first) {
+            pq.push(jewel[idx].second);
+            idx++;
+        }
+        if (pq.size()) {
+            ret += pq.top();
+            pq.pop();
+        }
     }
-    cout << cnt << "\n";
+    cout << ret << "\n";
 }
