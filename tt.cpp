@@ -1,33 +1,27 @@
 #include<bits/stdc++.h>
 using namespace std;
-long long n, k, a, ret, m, v;
-vector<pair<int,int>> jewel;
-vector<int> bag;
+int n, p, d, ret;
+vector<pair<int,int>> v;
 
 int main() {
-    cin >> n >> k;
+    cin >> n;
     for (int i = 0; i < n; i++) {
-        cin >> m >> v;
-        jewel.push_back({m, v});
+        cin >> p >> d;
+        v.push_back({d,p}); // day, pay
     }
-    for (int i = 0; i < k; i++) {
-        cin >> a;
-        bag.push_back(a);
-    }
-    sort(bag.begin(), bag.end());
-    sort(jewel.begin(), jewel.end());
+    sort(v.begin(), v.end()); // day 오름차순 정렬
 
-    priority_queue<int> pq;
-    int idx = 0;
-    for (int i = 0; i < bag.size(); i++) {
-        while(idx < n && bag[i] >= jewel[idx].first) {
-            pq.push(jewel[idx].second);
-            idx++;
-        }
-        if (pq.size()) {
-            ret += pq.top();
+    priority_queue<int, vector<int>, greater<int>> pq;
+    for (int i = 0; i < n; i++) {
+        pq.push(v[i].second);
+        if(pq.size() > v[i].first) {
             pq.pop();
         }
+    }
+
+    while(pq.size()) {
+        ret += pq.top();
+        pq.pop();
     }
     cout << ret << "\n";
 }
