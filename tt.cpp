@@ -1,40 +1,30 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n, l, a, b, ret;
-vector<pair<int,int>> v;
+int n, ret;
+int isused[40], isused2[40], isused3[40];
+
+void go(int here) {
+    if (here == n) {
+        ret++;
+        return;
+    }
+    
+    for(int x = 0; x < n; x++) {
+        if (isused[x] || isused2[x + here] || isused3[x - here + n - 1]) continue;
+        isused[x] = 1;
+        isused2[x + here] = 1;
+        isused3[x - here + n - 1] = 1;
+        go(here + 1);
+        isused[x] = 0;
+        isused2[x + here] = 0;
+        isused3[x - here + n - 1] = 0;
+    }
+}
 
 int main() {
-    cin >> n >> l;
-    for (int i = 0; i < n; i++) {
-        cin >> a >> b;
-        v.push_back({a,b});
-    }
-    sort(v.begin(), v.end());
-
-    int s = 0;
-    int e = 0;
-    for (int i = 0; i < n; i++) {
-        if (e < v[i].first) { // 널판지 끝이 웅덩이 시작 위치보다 전인 경우
-            int cnt = (v[i].second - v[i].first) / l;
-            int remain = (v[i].second - v[i].first) % l;
-
-            if (remain > 0)
-                cnt++;
-            
-            s = v[i].first; // 널판지 시작 위치
-            e = s + cnt * l; // 널판지 끝 위치
-            ret += cnt;
-        }
-        else if(e < v[i].second) { // 널판지 끝 >= 웅덩이 시작 위치 and 널판지 끝 < 웅덩이 끝 위치
-            int cnt = (v[i].second - e) / l;
-            int remain = (v[i].second - e) % l;
-
-            if (remain > 0)
-                cnt++;
-            
-            e = e + cnt * l;
-            ret += cnt;
-        }
-    }
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    cin >> n;
+    go(0);
     cout << ret << "\n";
 }
