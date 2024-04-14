@@ -1,16 +1,31 @@
 #include<bits/stdc++.h>
 using namespace std;
-long long s;
+int n, m, visited[10];
+
+void print(vector<int>& v) {
+    for (auto i : v)
+        cout << i << " ";
+    cout << "\n";
+}
+
+void go(int idx, vector<int> v) {
+    if (idx == m) {
+        print(v);
+        return;
+    }
+
+    for (int i = 1; i <= n; i++) {
+        if (visited[i]) continue;
+        visited[i] = 1;
+        v.push_back(i);
+        go(idx + 1, v);
+        visited[i] = 0;
+        v.pop_back();
+    }
+}
 
 int main() {
-    cin >> s;
-
-    long long cnt = 1;
-    long long sum = 0;
-    while(true) {
-        sum += cnt++;
-        if (sum > s) break;
-    }
-    if (sum == s) cout << cnt - 1 << "\n";
-    else cout << cnt - 2 << "\n";
+    cin >> n >> m;
+    vector<int> v;
+    go(0, v);
 }
